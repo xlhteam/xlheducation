@@ -6,7 +6,7 @@ import java.util.List;
 
 
 public interface GuideDao {
-	
+	//  look at me。。。。。
 	public void save(Guide g);
 	
 	public void update(Guide g);
