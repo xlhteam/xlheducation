@@ -2,9 +2,10 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.oracle.edu</groupId>
-	<artifactId>edu-parent</artifactId>
+	<artifactId>education</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
+
 	<properties>
 		<junit.version>4.12</junit.version>
 		<spring.version>4.1.3.RELEASE</spring.version>
@@ -177,8 +178,26 @@
 	</dependencies>
 	
 	<build>
+		<extensions>
+			<extension>
+				<groupId>org.apache.maven.wagon</groupId>
+				<artifactId>wagon-ssh</artifactId>
+				<version>2.8</version>
+			</extension>
+		</extensions>
 		<finalName>${project.artifactId}</finalName>
 		<plugins>
+			<!-- start： 方便部署tomcat的插件 执行wagon:upload-singe命令 插件可以直接将war部署到服务器上-->
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>wagon-maven-plugin</artifactId>
+				<version>1.0</version>
+				<configuration>
+					<fromFile>target/education.war</fromFile>
+					<url>scp://foroa:qwer1234@47.94.169.235/home/foroa/soft/apache-tomcat-7.0.78/webapps/</url>
+				</configuration>
+			</plugin>
+			<!--end:方便部署tomcat的插件 使用wagon:upload-singe 插件可以直接将war部署到服务器上-->
 			<!-- 资源文件拷贝插件 -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
