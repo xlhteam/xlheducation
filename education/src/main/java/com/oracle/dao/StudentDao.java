@@ -58,5 +58,15 @@ public interface StudentDao {
 	public int getStudentsCountByMap(@Param("param") Map<String,Object> map,@Param("page") PageInfo info);
 	
 	public void importStudent(Student stu);
+
+	/**
+	 * 检查学生的身份证号是否存在
+	 * 如果存在则返回学生所在的班级编号
+	 * 如果不存在返回null
+	 * @param idCard
+	 * @return  存在返回班级，否则返回null
+	 * @author djp
+	 */
+	String checkStuIdCard(String idCard);
 	
 }
