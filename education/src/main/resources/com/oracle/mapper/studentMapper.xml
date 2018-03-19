@@ -530,4 +530,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		s.stuId=#{studentId}
 	</select>
 
+
+	<select id="checkStuIdCard" parameterType="string" resultType="string">
+		  select (select classname from tb_class where classid=a.classid) from tb_student a where idcard=#{id} limit 0,1 ;
+	</select>
 </mapper>
