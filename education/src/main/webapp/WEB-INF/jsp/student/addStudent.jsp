@@ -41,6 +41,28 @@ td {
 			});
 			
 		});
+
+        /**
+		 * 增加验证学生身份证号是否存在功能 by Djp 2018-03-19
+         */
+          var inputIdcard=$("input[name='idcard']");
+          inputIdcard.blur(function(){
+			   $.get("../student/checkStuId",{idCard:$(this).val()},function (data){
+			        if(data=="null"){
+                        inputIdcard.css("color","green");
+                        inputIdcard.next().html("");
+                        $("input[type='submit']").attr("disabled",null);
+					}else{
+                        inputIdcard.css("color","red");
+                        inputIdcard.next().html("在"+data+"班");
+                        $("input[type='submit']").attr("disabled","disabled");
+					}
+			   })
+		  })
+        /**
+         * 增加验证学生身份证号是否存在功能 by Djp 2018-03-19
+         */
+
 	});
 </script>
 <head>
@@ -65,7 +87,8 @@ td {
 				<td><select name="degree.stateId" id="degree" style="width: 100px">
 				</select></td>
 				<td>身份证号</td>
-				<td><input type="text" name="idcard"></td>
+				<td><input type="text" name="idcard" >&nbsp;&nbsp;&nbsp;
+					<span style="color:royalblue;font-size: medium"></span></td>
 			<tr>
 			<tr>
 				<td>班级</td>
@@ -114,7 +137,7 @@ td {
 				<td><textarea rows="4" cols="30" name="comment"></textarea></td>
 			<tr>
 			<tr align="right">
-				<td colspan="4"><input type="submit" value="创建"></td>
+				<td colspan="4"><input type="submit" value="创建" ></td>
 			<tr>
 		</table>
 	</form>
