@@ -34,4 +34,13 @@ public interface StudentService {
 	public void importStudent(Student stu);
 	
 	public List<Student> getStudentByClassId( Integer classId);
+	/**
+	 * 检查学生的身份证号是否存在
+	 * 如果存在则返回学生所在的班级编号
+	 * 如果不存在返回null
+	 * @param idCard
+	 * @return  存在返回班级，否则返回null
+	 * @author djp
+	 */
+	String checkStuIdCardService(String idCard);
 }

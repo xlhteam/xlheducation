@@ -26,7 +26,7 @@ public class StudentServiceImpl implements StudentService {
 		dictinary.put(305, 6);
 		dictinary.put(306, 2);
 	}
-	
+
 	@Autowired
 	private StudentDao stuDao;
 	
@@ -134,8 +134,23 @@ public class StudentServiceImpl implements StudentService {
 		// TODO Auto-generated method stub
 		return stuDao.getStudentByClassId(classId);
 	}
+	/**
+	 * 检查学生的身份证号是否存在
+	 * 如果存在则返回学生所在的班级编号
+	 * 如果不存在返回null
+	 * @param idCard
+	 * @return  存在返回班级，否则返回null
+	 * @author djp
+	 */
+	@Override
+	public String checkStuIdCardService(String idCard) {
+		if("".equals(idCard)){//如果传过来的是空串的话则不进行验证
+			return null;
+		}else{
+			return stuDao.checkStuIdCard(idCard);
+		}
 
-
+	}
 
 
 }

@@ -1,12 +1,16 @@
 package com.oracle.handler;
 
+import java.io.IOException;
 import java.sql.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
+import org.apache.http.HttpResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,7 +21,7 @@ import com.oracle.util.PageInfo;
 import com.oracle.vo.JobSearch;
 import com.oracle.vo.Student;
 import com.oracle.vo.StudentChange;
-
+import org.springframework.web.bind.annotation.ResponseBody;
 
 
 @RequestMapping("/student")
@@ -60,10 +64,6 @@ public class StudentHandler {
 	//查询所有班级
 	@RequestMapping("/getAll")
 	public String getAll(Map<String,Object> map,Integer schoolId,String className,String stuName,HttpServletRequest request){
-		
-		System.out.println("------------------------"+request);
-		
-		
 		PageInfo info=new PageInfo(request);
 		
 		Map<String,Object> paramMap=new HashMap<String,Object>();
@@ -120,7 +120,6 @@ public class StudentHandler {
 	public String changeStudent(StudentChange change,String flag){
 		this.studentService.changeStudent(change);
 		
-		System.out.println(change);
 	//	return "redirect:getAll";
 		
 		if("class".equals(flag)){
@@ -137,7 +136,6 @@ public class StudentHandler {
 	
 	/**
 	 * 显示改变学生的状态，开班，转换，休学等业务的页面
-	 * @param change
 	 * @return
 	 */
 	@RequestMapping("/viewChangeStudent")
@@ -160,7 +158,6 @@ public class StudentHandler {
 	@RequestMapping("/getJobList" )
 	public String getJobList(Map<String,Object> map,Integer classId,Integer schoolId,Integer classTypeId,Date startDate,Date endDate,HttpServletRequest request){
 		Map<String,Object> paramMap=new HashMap<String,Object>();
-		System.out.println(classId);
 		paramMap.put("schoolId", schoolId);
 		paramMap.put("classTypeId", classTypeId);
 		paramMap.put("classId", classId);
@@ -180,6 +177,17 @@ public class StudentHandler {
 		map.put("jobMap", jobMap);
 		
 		return "student/listStudentJob";
+	}
+	/**
+	 * 检查学生的身份证号是否存在
+	 * 如果存在则返回学生所在的班级编号
+	 * 如果不存在返回null
+	 * @param idCard
+	 * @return  存在返回班级，否则返回null
+	 */
+	@RequestMapping("/checkStuId")
+	public  void  checkStudentExist(String idCard, HttpServletResponse response) throws IOException {
+		response.getWriter().print(studentService.checkStuIdCardService(idCard));
 	}
 	
 }
