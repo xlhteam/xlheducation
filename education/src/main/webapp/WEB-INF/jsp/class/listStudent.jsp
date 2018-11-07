@@ -75,7 +75,10 @@ td {
 				<td>${s.comment}</td>
 				<td><a href="../student/getStudentById?studentId=${s.studentId}">详细信息</a>
 					| <a href="../student/viewStudentJobById?flag=class&studentId=${s.studentId}">就业管理</a> |
-					<a href="../student/viewChangeStudent?flag=class&studentId=${s.studentId}">学生转班</a></td>
+					<a href="../student/viewChangeStudent?flag=class&studentId=${s.studentId}">学生转班</a>
+					<a href="../student/showStudentInfo?studentId=${s.studentId}">修改信息</a>
+				</td>
+
 			</tr>
 
 		</c:forEach>

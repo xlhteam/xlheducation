@@ -27,8 +27,6 @@ public class CommonHandler {
 	public String getActiveClassforGson(int type,String stateId){
 		Select select=new Select();
 		select.putAll(commonSerive.getStatesById(type), "stateId", "stateName",stateId);
-		
-		System.out.println(stateId+"\t"+select.toString());
 		return select.toString();
 	}
 }

@@ -6,11 +6,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.http.HttpResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,10 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.oracle.service.StudentService;
 import com.oracle.util.PageInfo;
-import com.oracle.vo.JobSearch;
 import com.oracle.vo.Student;
 import com.oracle.vo.StudentChange;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 
 @RequestMapping("/student")
@@ -35,17 +31,13 @@ public class StudentHandler {
 	@RequestMapping("/save")
 	public String save(Student stu){
 		studentService.save(stu);
-		System.out.println(stu);
 		return "redirect:getAll";
 	}
 	
 	//更新就业信息
 	@RequestMapping("/updateJob")
 	public String updateJob(Student stu,String flag){
-		System.out.println(stu);
-		System.out.println(stu.getState());
 		studentService.updateJob(stu);
-		
 		if("class".equals(flag)){
 			return "redirect:/class/listStudentsByClassId?classId="+stu.getTclass().getClassId();
 		}else{
@@ -57,7 +49,6 @@ public class StudentHandler {
 	//直接访问JSP
 	@RequestMapping("/{path}")
 	public String path(@PathVariable("path") String p){		
-	//	System.out.println("path过了。哈哈；");
 		return "student/"+p;
 	}
 	
@@ -71,14 +62,9 @@ public class StudentHandler {
 		paramMap.put("schoolId", schoolId);
 		paramMap.put("className", className);
 		paramMap.put("stuName", stuName);
-		System.out.println(className);
-	//	System.out.println("----sss---"+paramMap);
 		//存储条件
 		map.put("paramMap", paramMap);
-		
 		List<Student> list=studentService.getStudentsByMap(paramMap,info);
-		System.out.println(list.size());
-		
 		map.put("list", list);
 		return "student/listStudent";
 	}
@@ -88,13 +74,10 @@ public class StudentHandler {
 	@RequestMapping("/getStudentById")
 	public String getStudentById(Map<String,Object> map,Integer studentId){
 		Student stu=studentService.getStudentById(studentId);
-		System.out.println(stu);
 		map.put("stu", stu);
 		@SuppressWarnings("rawtypes")
 		List<Map> changes=studentService.selectStudentChanges(studentId);
 		map.put("changes", changes);
-		System.out.println(changes);
-		
 		return "student/viewStudentDetail";
 	}
 	
@@ -103,7 +86,6 @@ public class StudentHandler {
 	@RequestMapping("/viewStudentJobById")
 	public String viewStudentJobById(Map<String,Object> map,Integer studentId,String flag){
 		Student stu=studentService.getStudentById(studentId);
-		System.out.println(stu);
 		map.put("stu", stu);
 		if(flag!=null){
 			map.put("flag", flag);
@@ -119,16 +101,12 @@ public class StudentHandler {
 	@RequestMapping("/changeStudent")
 	public String changeStudent(StudentChange change,String flag){
 		this.studentService.changeStudent(change);
-		
-	//	return "redirect:getAll";
-		
 		if("class".equals(flag)){
 			if(change.getToClass()!=null&&change.getToClass().getClassId()!=null){
 				return "redirect:/class/listStudentsByClassId?classId="+change.getToClass().getClassId();
 			}else{
 				return "redirect:/class/listStudentsByClassId?classId="+change.getFromClass().getClassId();
 			}
-			
 		}else{
 			return "redirect:/student/getAll";
 		}
@@ -141,7 +119,6 @@ public class StudentHandler {
 	@RequestMapping("/viewChangeStudent")
 	public String viewChangeStudent(Map<String,Object> map,Integer studentId,String flag){
 		Student stu=studentService.getStudentById(studentId);
-		System.out.println(stu);
 		map.put("stu", stu);
 		if(flag!=null){
 			map.put("flag", flag);
@@ -163,19 +140,13 @@ public class StudentHandler {
 		paramMap.put("classId", classId);
 		paramMap.put("startDate", startDate);
 		paramMap.put("endDate", endDate);
-
-
 		PageInfo info=new PageInfo(request);
-		
-		
 		List<Student> list=studentService.getJobList(paramMap,info);
 		map.put("list", list);
-	
 		//就业统计
 		map.put("paramMap", paramMap);
 		Map<String,Object> jobMap=this.studentService.getJobDetails(paramMap);
 		map.put("jobMap", jobMap);
-		
 		return "student/listStudentJob";
 	}
 	/**
@@ -189,5 +160,37 @@ public class StudentHandler {
 	public  void  checkStudentExist(String idCard, HttpServletResponse response) throws IOException {
 		response.getWriter().print(studentService.checkStuIdCardService(idCard));
 	}
-	
+
+
+	/**
+	 * 查询学生信息用于修改学生信息
+	 * @param studentId 学生编号
+	 * @code by DJP
+	 */
+	@RequestMapping("/showStudentInfo")
+	public String showStudentInfoForUpdate(String studentId,Map<String,Object> map){
+		Student student=studentService.getStudentById(Integer.parseInt(studentId));
+		map.put("stu",student);
+		return "student/showStudentInfo";
+	}
+
+    @RequestMapping("/updateStudentInfo")
+	public String updateStudentInfo(Student student){
+		System.out.println(student);
+		studentService.updateStudent(student);
+		return "redirect:/student/getAll";
+	}
+
+	/**
+	 * 删除学生的
+	 * @param studentId
+	 * @return 查询页面
+	 * @author DJP
+	 */
+	@RequestMapping("/deleteStudent")
+	public String deleteStudentById(String studentId){
+		System.out.println(studentId);
+		studentService.deleteStudentById(studentId);
+		return "redirect:getAll";
+	}
 }

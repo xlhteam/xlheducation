@@ -22,8 +22,8 @@ public class Student {
 	private String grade;
 
 	private String tel;
-	private String mtel;
-	private String ftel;
+	private String mtel;//母亲电话
+	private String ftel;//父亲电话
 	private String address;
 	private String intendCity;
 	private String workcity;

@@ -5,7 +5,7 @@ import java.util.List;
 import com.oracle.vo.School;
 
 public interface SchoolService {
-	public List<School> getAll();
+	 List<School> getAll();
 	
-	public void save(School school);
+	 void save(School school);
 }

@@ -139,7 +139,10 @@ td {
 				<td>${s.comment}</td>
 				<td><a href="getStudentById?studentId=${s.studentId}">详细信息</a>
 					| <a href="viewStudentJobById?studentId=${s.studentId}">就业管理</a> |
-					<a href="viewChangeStudent?studentId=${s.studentId}">学生转班</a></td>
+					<a href="viewChangeStudent?studentId=${s.studentId}">学生转班</a>
+					<a href="#" onclick="confirmDel('${s.name}','${s.studentId}')">删除</a>
+					<a href="showStudentInfo?studentId=${s.studentId}">修改</a>
+				</td>
 			</tr>
 
 		</c:forEach>
@@ -159,4 +162,12 @@ td {
 	</table>
 	<div style="height:100px"></div>
 </body>
+<script >
+   function confirmDel(name,id){
+       var r=confirm("真的要删除==="+name+"===吗？")
+       if(r) {
+           location.href = "deleteStudent?studentId="+id
+       }
+   }
+</script>
 </html>

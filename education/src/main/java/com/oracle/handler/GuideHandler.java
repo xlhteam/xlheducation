@@ -24,8 +24,6 @@ public class GuideHandler {
 	public String save(Guide guide,Map<String,Object> map){
 		guideService.save(guide);
 		List<Guide> list=guideService.getAll();
-		System.out.println(list.size());
-		System.out.println(list);
 		map.put("list", list);
 		return "guide/listGuide";
 	}
@@ -33,7 +31,6 @@ public class GuideHandler {
 	
 	@RequestMapping("/{path}")
 	public String path(@PathVariable("path") String path){
-		System.out.println(guideService+"---------path");
 		return "guide/"+path;
 	}
 	
@@ -45,9 +42,7 @@ public class GuideHandler {
 	@ResponseBody
 	public String getJobGuidesforGson(String guideId){
 		Select select=new Select();
-		System.out.println("test");
 		select.putAll(guideService.getJobGuides(), "guideId", "name",guideId);
-		System.out.println(select.toString());
 		return select.toString();
 	}
 	
@@ -60,7 +55,6 @@ public class GuideHandler {
 	public String getClassGuidesforGson(String guideId){
 		Select select=new Select();
 		select.putAll(guideService.getClassGuides(), "guideId", "name",guideId);
-		System.out.println(select.toString());
 		return select.toString();
 	}
 	

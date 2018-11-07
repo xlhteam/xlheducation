@@ -534,4 +534,39 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="checkStuIdCard" parameterType="string" resultType="string">
 		  select (select classname from tb_class where classid=a.classid) from tb_student a where idcard=#{id} limit 0,1 ;
 	</select>
+
+    <!--修改学生的sql author：DJP-->
+	<update id="updateStudent" parameterType="student">
+
+	  update tb_student
+        SET
+		NAME=#{name},
+		SEX=#{sex},
+		CLASSID=#{tclass.classId},
+		teacherId=#{teacher.teacherId},
+		degreeid=#{degree.stateId},
+		IDCARD=#{idcard},
+		TEL=#{tel},
+		FTEL=#{ftel},
+		MTEL=#{mtel},
+		SCHOOLID=#{school.schoolId},
+		MAJOR=#{major},
+		GRADE=#{grade},
+		CLASSGUIDEID=#{classGuide.guideId},
+		JOBGUIDEID=#{jobGuide.guideId},
+		ADDRESS=#{address},
+		COMMENT=#{comment}
+		where stuid=#{studentId}
+
+
+	</update>
+    
+    
+    <delete id="deleteStudentById" parameterType="string">
+        delete from tb_student where stuid=#{id}
+    </delete>
+    
+    <delete id="deleteStudentChangeByStudentId" parameterType="string">
+        delete from ta_student_change where stuid=#{id}
+    </delete>
 </mapper>

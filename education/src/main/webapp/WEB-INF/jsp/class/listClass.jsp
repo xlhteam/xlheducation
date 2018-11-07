@@ -62,7 +62,11 @@
 				<td>${clazz.endDate }</td>
 				<td style="color:${clazz.state.stateId==102?'red':'#000000'}">${clazz.state.stateName}</td>
 				<td>${clazz.comment}</td>
-				<td><a href="getClassById?classId=${clazz.classId}">结课</a> | <a href="viewClassDetailsById?classId=${clazz.classId}">班级详细</a> | <a href="listStudentsByClassId?classId=${clazz.classId}">学生信息</a></td>
+				<td><a href="getClassById?classId=${clazz.classId}">结课</a>
+					| <a href="viewClassDetailsById?classId=${clazz.classId}">班级详细</a>
+					| <a href="listStudentsByClassId?classId=${clazz.classId}">学生信息</a>
+					| <a href="deleteClassById?classId=${clazz.classId}">删除</a>
+				</td>
 			</tr>
 
 		</c:forEach>

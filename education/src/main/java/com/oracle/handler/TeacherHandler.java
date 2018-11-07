@@ -35,7 +35,6 @@ public class TeacherHandler {
 	
 	@RequestMapping("/{path}")
 	public String path(@PathVariable("path") String path){
-		System.out.println(teacherService+"---------path");
 		return "teacher/"+path;
 	}
 	
@@ -44,9 +43,7 @@ public class TeacherHandler {
 	@ResponseBody
 	public String getAllforGson(String teacherId){
 		Select select=new Select();
-		System.out.println("test");
 		select.putAll(teacherService.getAll(), "teacherId", "name",teacherId);
-		System.out.println(select.toString());
 		return select.toString();
 	}
 	

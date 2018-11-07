@@ -35,8 +35,6 @@ public class TclassHandler {
 	public String save(Tclass c,Map<String,Object> map){
 		classService.save(c);
 		List<Tclass> list=classService.getAll();
-		System.out.println(list.size());
-		System.out.println(list);
 		map.put("list", list);
 		return "class/listClass";
 	}
@@ -57,7 +55,6 @@ public class TclassHandler {
 	@RequestMapping("/getAll")
 	public String getAll(Map<String,Object> map){
 		List<Tclass> list=classService.getAll();
-		System.out.println(list.size());
 		map.put("list", list);
 		return "class/listClass";
 	}
@@ -65,7 +62,6 @@ public class TclassHandler {
 	//访问jsp面面
 	@RequestMapping("/{path}")
 	public String path(@PathVariable("path") String path){
-	//	System.out.println(classService+"---------path");
 		return "class/"+path;
 	}
 	
@@ -78,7 +74,6 @@ public class TclassHandler {
 	public String getActiveClassforGson(String classId){
 		Select select=new Select();
 		select.putAll(classService.getTclassByState(1), "classId", "className",classId);
-		System.out.println(select.toString());
 		return select.toString();
 	}
 	
@@ -123,21 +118,12 @@ public class TclassHandler {
 	public String getActiveClassforType(int typeId,Integer stateId){
 		Select select=new Select();
 		select.putAll(classService.getTclassByType(typeId), "classId", "className",Integer.toString(stateId));
-		System.out.println(select.toString());
 		return select.toString();
 	}
-	
-	
-
-	
-	
 	//查询所有班级
 	@RequestMapping("/listStudentsByClassId")
 	public String listStudentsByClassId(Map<String,Object> map,Integer classId){
-		
 		List<Student> list=studentService.getStudentByClassId(classId);
-		System.out.println(list.size());
-		
 		map.put("list", list);
 		return "class/listStudent";
 	}

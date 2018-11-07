@@ -12,52 +12,51 @@ import com.oracle.vo.Tclass;
 import com.oracle.vo.User;
 
 public interface StudentDao {
-	public void save(Student student);
-	public List<Student> getAll();
+	 void save(Student student);
+
+	 List<Student> getAll();
 	
-	public Student getStudentById(@Param("studentId") Integer studentId);
-	public void updateJob(Student student);
+	 Student getStudentById(@Param("studentId") Integer studentId);
+	 void updateJob(Student student);
 	
-	public void changeStudent(StudentChange change);
+	 void changeStudent(StudentChange change);
 	
 	/**
 	 * 更新学员的转班，休学，退学后的信息
-	 * @param student
+	 *
 	 */
-	public void changeStudentState(StudentChange change);
+	 void changeStudentState(StudentChange change);
 	
-	public void changeStudentStateToMyself(StudentChange change);
+	 void changeStudentStateToMyself(StudentChange change);
 	
 	/**
 	 * 班级的学生结课
 	 * @param clazz
 	 */
-	public void insertClassStudentToEnd(Tclass clazz);
+	 void insertClassStudentToEnd(Tclass clazz);
 	
 	
-	public void insertClassStudentToBegin(Student student);
+	 void insertClassStudentToBegin(Student student);
 	
 	
-	@SuppressWarnings("rawtypes")
-	public List<Map> selectStudentChanges(int stuId);
+	 List<Map> selectStudentChanges(int stuId);
 	
 	
-	public List<Student> getJobList(@Param("param") Map<String,Object> map,@Param("page") PageInfo info);
+	 List<Student> getJobList(@Param("param") Map<String,Object> map,@Param("page") PageInfo info);
 	
-	public int getJobListCount(@Param("param") Map<String,Object> map,@Param("page") PageInfo info);
+	 int getJobListCount(@Param("param") Map<String,Object> map,@Param("page") PageInfo info);
 	
-	public void updateStudentToEnd(Tclass tclass);
+	 void updateStudentToEnd(Tclass tclass);
 	
-	public Map<String,Object> getJobDetails(@Param("param") Map<String,Object> map);
+	 Map<String,Object> getJobDetails(@Param("param") Map<String,Object> map);
 	
-	public List<Student> getStudentsByMap(@Param("param") Map<String,Object> map,@Param("page") PageInfo info);
+	 List<Student> getStudentsByMap(@Param("param") Map<String,Object> map,@Param("page") PageInfo info);
 	
+	 List<Student> getStudentByClassId(@Param("classId") Integer classId);
 	
-	public List<Student> getStudentByClassId(@Param("classId") Integer classId);
-	
-	public int getStudentsCountByMap(@Param("param") Map<String,Object> map,@Param("page") PageInfo info);
-	
-	public void importStudent(Student stu);
+	 int getStudentsCountByMap(@Param("param") Map<String,Object> map,@Param("page") PageInfo info);
+
+	 void importStudent(Student stu);
 
 	/**
 	 * 检查学生的身份证号是否存在
@@ -68,5 +67,26 @@ public interface StudentDao {
 	 * @author djp
 	 */
 	String checkStuIdCard(String idCard);
+
+	/**
+	 * 修改学生基本信息,修改的字段参考添加的字段
+	 * 也就是说可以添加哪些内容就可以修改哪些内容
+	 * @param student 学生实体
+	 * @author DJP
+	 */
+	void updateStudent(Student student);
+
+	/**
+	 * 删除学生表
+	 * @param studentId
+	 */
+	void deleteStudentById(String studentId);
+
+	/**
+	 * 删除studentchange表中记录
+	 * @param studentId
+	 * @author DJP
+	 */
+	void deleteStudentChangeByStudentId(String studentId);
 	
 }

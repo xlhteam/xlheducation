@@ -6,23 +6,23 @@ import java.util.Map;
 import com.oracle.vo.Tclass;
 
 public interface TclassService {
-	public void save(Tclass c);
+	 void save(Tclass c);
 	
-	public void endClass(Tclass c);
+	 void endClass(Tclass c);
 	
-	public List<Tclass> getAll();
+	 List<Tclass> getAll();
 	
-	public List<Tclass> getAll(String classType);
+	 List<Tclass> getAll(String classType);
 	
-	public List<Tclass> getTclassByName(String className);
+	 List<Tclass> getTclassByName(String className);
 	
-	public List<Tclass> getTclassByState(int state);
+	 List<Tclass> getTclassByState(int state);
 	
-	public Tclass getClassById(int classId);
+	 Tclass getClassById(int classId);
 	
-	public List<Tclass> getTclassByType(int typeId);
+	 List<Tclass> getTclassByType(int typeId);
 	
-	public Map<String,Object> selectClassStatus(Tclass c);
+	 Map<String,Object> selectClassStatus(Tclass c);
 	
-	public List<Map<String,Object>> selectClassChanges(Tclass c);
+	 List<Map<String,Object>> selectClassChanges(Tclass c);
 }

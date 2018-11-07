@@ -20,9 +20,7 @@ public class UserHandler {
 	
 	@RequestMapping("/login")
 	public String login(User user,Map<String,Object> map){
-		System.out.println("ssss");
 		User u=this.userService.login(user);
-		System.out.println("登录了吗？现在的情况是：              "+u);
 		if(u==null){
 			
 			return "redirect:index.jsp";

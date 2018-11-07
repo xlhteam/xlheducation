@@ -13,7 +13,6 @@ import com.oracle.util.PageInfo;
 import com.oracle.vo.State;
 import com.oracle.vo.Student;
 import com.oracle.vo.StudentChange;
-import com.oracle.vo.User;
 
 
 @Service
@@ -131,7 +130,6 @@ public class StudentServiceImpl implements StudentService {
 	@Override
 	@Transactional(readOnly=true)
 	public List<Student> getStudentByClassId(Integer classId) {
-		// TODO Auto-generated method stub
 		return stuDao.getStudentByClassId(classId);
 	}
 	/**
@@ -151,6 +149,26 @@ public class StudentServiceImpl implements StudentService {
 		}
 
 	}
+	/**
+	 * 修改学生基本信息
+	 * @param student 学生实体
+	 * @author DJP
+	 */
+	@Override
+    @Transactional
+	public void updateStudent(Student student) {
+		stuDao.updateStudent(student);
+	}
 
-
+	/**
+	 * 删除学生信息 首先删除student_change表中记录 然后再删除学生表记录
+	 * @param studentId
+	 * @autho DJP
+	 */
+	@Transactional
+	@Override
+	public void deleteStudentById(String studentId) {
+		stuDao.deleteStudentChangeByStudentId(studentId);
+		stuDao.deleteStudentById(studentId);
+	}
 }

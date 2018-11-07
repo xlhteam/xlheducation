@@ -23,9 +23,9 @@ public class Select {
 	 */
 	public void put(String value, String name,String selected) {
 		if(value.equals(selected)){
-			options.append("<option value='" + value + "' selected>" + name + "</option>");
+			options.append("<option value='" + value + "' selected >" + name + "</option> \n");
 		}else{
-			options.append("<option value='" + value + "'>" + name + "</option>");
+			options.append("<option value='" + value + "'>" + name + "</option> \n");
 		}	
 	}
 

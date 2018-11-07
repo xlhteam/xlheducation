@@ -27,9 +27,10 @@ public class SchoolHandler {
 		Select select=new Select();
 		List<School> list=schoolService.getAll();
 		select.putAll(list, "schoolId", "name",schoolId);
-		System.out.println(list.size());
 		return select.toString();
 	}
+
+
 	
 	
 	@RequestMapping("/getAll")
